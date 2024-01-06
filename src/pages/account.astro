@@ -1,0 +1,32 @@
+---
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { ROUTE_CLIENT } from '@lib/routes';
+import { getUser } from '@lib/utils';
+import { Button } from '@nextui-org/react';
+import { ButtonSignout } from '@ui/ButtonSignout';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+---
+
+<Layout title="Account">
+  <AppLayout>
+    <section class="w-full grid grid-cols-1 gap-6 pb-4">
+      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mt-10 mb-6">My Account</h1>
+    </section>
+    <section class="w-full grid grid-cols-1 gap-6 pb-4">
+      <Button color="primary" client:visible>My button</Button>
+      <ButtonSignout client:idle />
+    </section>
+  </AppLayout>
+</Layout>

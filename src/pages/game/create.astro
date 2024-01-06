@@ -1,0 +1,41 @@
+---
+import { GameForm } from '@components/game/GameForm';
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { firestore } from '@lib/firebase/server';
+import { ROUTE_CLIENT } from '@lib/routes';
+import type { ContactTypeWithId } from '@lib/types';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* get contacts from firestore */
+const queryContacts = await firestore
+  .collection('contacts')
+  .where('authorId', '==', user.uid)
+  .limit(100)
+  .get();
+
+const contactsDoc = queryContacts.docs.map((doc) => {
+  return { documentId: doc.id, ...doc.data() };
+}) as ContactTypeWithId[];
+---
+
+<Layout title="Create New Game">
+  <AppLayout>
+    <section class="w-full">
+      <h1 class="font-semibold sm:text-2xl text-xl text-zinc-900 w-full mb-6">Create a new game</h1>
+      <GameForm contacts={contactsDoc} client:load />
+    </section>
+  </AppLayout>
+</Layout>

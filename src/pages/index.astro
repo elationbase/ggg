@@ -1,0 +1,30 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { ROUTE_CLIENT } from '@lib/routes';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (sessionCookie) {
+  const user = await getUser(sessionCookie);
+  if (user) {
+    return Astro.redirect(ROUTE_CLIENT.dashboard, 302);
+  }
+}
+---
+
+<Layout title="Home">
+  <main class="w-full h-full flex flex-col items-center justify-center">
+    <p class="text-3xl text-zinc-300 font-semibold">Welcome to GoGoGolf!</p>
+    <div class="flex gap-4 mt-4">
+      <a
+        href={ROUTE_CLIENT.login}
+        class="bg-indigo-400 font-medium hover:bg-indigo-400 px-4 py-1 rounded-md">Sign in</a
+      >
+      <a
+        href={ROUTE_CLIENT.register}
+        class="bg-indigo-400 font-medium hover:bg-indigo-400 px-4 py-1 rounded-md">Register</a
+      >
+    </div>
+  </main>
+</Layout>

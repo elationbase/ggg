@@ -1,0 +1,56 @@
+---
+import { ContactForm } from '@components/contact';
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { firestore } from '@lib/firebase/server';
+import { ROUTE_CLIENT } from '@lib/routes';
+import type { ContactType } from '@lib/types';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Get user data */
+const contactId = Astro.params.id;
+
+if (!contactId) {
+  return Astro.redirect(ROUTE_CLIENT.dashboard);
+}
+
+/* get document data with documentId */
+const contactInfoRef = await firestore.collection('contacts').doc(contactId).get();
+
+const contactData = contactInfoRef.data() as ContactType | undefined;
+
+if (!contactData) {
+  return Astro.redirect(ROUTE_CLIENT.notFound);
+}
+
+if (contactData.authorId !== user.uid) {
+  return Astro.redirect(ROUTE_CLIENT.dashboard);
+}
+
+const ContactInfo = Object.assign(contactData, {
+  documentId: contactInfoRef.id,
+});
+---
+
+<Layout title="Edit Contact">
+  <AppLayout>
+    <section class="w-full">
+      <h1 class="font-semibold sm:text-2xl text-xl dark:text-zinc-100 text-zinc-900 w-full mb-4">
+        Edit Contact
+      </h1>
+      <ContactForm client:load contactInfo={ContactInfo} type="edit" />
+    </section>
+  </AppLayout>
+</Layout>

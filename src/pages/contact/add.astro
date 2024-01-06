@@ -1,0 +1,30 @@
+---
+import { ContactForm } from '@components/contact';
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { ROUTE_CLIENT } from '@lib/routes';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+---
+
+<Layout title="Add New Contact">
+  <AppLayout>
+    <section class="w-full">
+      <h1 class="font-semibold sm:text-2xl text-xl dark:text-zinc-100 text-zinc-900 w-full mb-6">
+        Add a new contact
+      </h1>
+      <ContactForm client:load />
+    </section>
+  </AppLayout>
+</Layout>

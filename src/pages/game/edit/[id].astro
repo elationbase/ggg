@@ -1,0 +1,50 @@
+---
+import { GameForm } from '@components/game';
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { firestore } from '@lib/firebase/server';
+import { ROUTE_CLIENT } from '@lib/routes';
+import type { GameType } from '@lib/types';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect(ROUTE_CLIENT.login);
+}
+
+/* Get user data */
+const gameId = Astro.params.id;
+
+if (!gameId) {
+  return Astro.redirect(ROUTE_CLIENT.dashboard);
+}
+
+/* get document data with documentId */
+const gameInfoRef = await firestore.collection('games').doc(gameId).get();
+
+const gameData = gameInfoRef.data() as GameType | undefined;
+
+if (!gameData) {
+  return Astro.redirect(ROUTE_CLIENT.notFound);
+}
+
+const GameInfo = Object.assign(gameData, {
+  documentId: gameInfoRef.id,
+});
+---
+
+<Layout title="Edit Game">
+  <AppLayout>
+    <section class="w-full">
+      <h1 class="font-semibold sm:text-2xl text-xl text-zinc-900 w-full mb-4">Edit Game</h1>
+      <GameForm client:load gameInfo={GameInfo} type="edit" />
+    </section>
+  </AppLayout>
+</Layout>

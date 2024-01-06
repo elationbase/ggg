@@ -1,0 +1,28 @@
+---
+import LoginForm from '@components/LoginForm';
+import Layout from '@layouts/Layout.astro';
+import LogLayout from '@layouts/LogLayout.astro';
+import { ROUTE_CLIENT } from '@lib/routes';
+import { getUser } from '@lib/utils';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (sessionCookie) {
+  const user = await getUser(sessionCookie);
+  if (user) {
+    return Astro.redirect('/dashboard', 302);
+  }
+}
+---
+
+<Layout title="Sign in to GoGoGolf">
+  <LogLayout heading="Sign in">
+    <p class="dark:text-zinc-400 text-zinc-500 text-sm mb-8 w-full">
+      New to GoGoGolf? <a
+        href={ROUTE_CLIENT.register}
+        class="text-blue-500 underline underline-offset-2 font-medium">Sign up for an account</a
+      >
+    </p>
+    <LoginForm client:load />
+  </LogLayout>
+</Layout>

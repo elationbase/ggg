@@ -1,0 +1,92 @@
+---
+import { ContactList } from '@components/contact';
+import { GameList } from '@components/game';
+import AppLayout from '@layouts/AppLayout.astro';
+import Layout from '@layouts/Layout.astro';
+import { firestore } from '@lib/firebase/server';
+import { TEXT } from '@lib/i18n';
+import type { ContactTypeWithId } from '@lib/types';
+import type { GameTypeWithId } from '@lib/types/game';
+import { getUser } from '@lib/utils';
+import { initContacts } from '@store/contacts';
+import { Show } from '@ui/Show';
+
+/* Get session cookie */
+const sessionCookie = Astro.cookies.get('session')?.value;
+if (!sessionCookie) {
+  return Astro.redirect('/login');
+}
+
+/* Verify session cookie and get user */
+const user = await getUser(sessionCookie);
+if (!user) {
+  return Astro.redirect('/login');
+}
+
+/* get contacts from firestore */
+const queryContacts = await firestore
+  .collection('contacts')
+  .where('authorId', '==', user.uid)
+  .limit(100)
+  .get();
+
+const contactsDoc = queryContacts.docs.map((doc) => {
+  return { documentId: doc.id, ...doc.data() };
+}) as ContactTypeWithId[];
+
+initContacts(contactsDoc);
+
+/* get created games from firestore */
+const queryCreatedGames = await firestore
+  .collection('games')
+  .where('authorId', '==', user.uid)
+  .limit(100)
+  .get();
+
+/* get invited games from firestore */
+const queryInvitedGames = await firestore
+  .collection('games')
+  .where('players', 'array-contains', user.email)
+  .limit(100)
+  .get();
+
+const createdamesDoc = queryCreatedGames.docs.map((doc) => {
+  return { documentId: doc.id, ...doc.data() };
+}) as GameTypeWithId[];
+
+const createdGames = createdamesDoc
+  .filter((game) => new Date(game.date) > new Date())
+  .sort((a, b) => +new Date(a.date) - +new Date(b.date));
+
+const invitedGamesDoc = queryInvitedGames.docs.map((doc) => {
+  return { documentId: doc.id, ...doc.data() };
+}) as GameTypeWithId[];
+
+const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Date(b.date));
+---
+
+<Layout title="Dashboard">
+  <AppLayout>
+    <section class="w-full grid grid-cols-1 gap-6 pb-4">
+      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mt-10 mb-6">
+        {TEXT.dashboard.gamesCreated}
+      </h1>
+      <Show when={createdGames.length === 0}>
+        <p class="text-zinc-500 dark:text-zinc-400">{TEXT.dashboard.noGamesCreated}</p>
+      </Show>
+      <GameList games={createdGames} contacts={contactsDoc} />
+    </section>
+    <Show when={invitedGames.length > 0}>
+      <section class="w-full grid grid-cols-1 gap-6 pb-4">
+        <h1
+          class="text-xl sm:text-3xl dark:text-zinc-100 w-full text-zinc-900 font-semibold mt-10 mb-6"
+        >
+          {TEXT.dashboard.gamesInvited}
+        </h1>
+        <GameList games={invitedGames} />
+      </section>
+    </Show>
+
+    <ContactList contacts={contactsDoc} />
+  </AppLayout>
+</Layout>

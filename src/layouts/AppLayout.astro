@@ -1,0 +1,26 @@
+---
+import { FooterNav } from '@components/FooterNav';
+import { TEXT } from '@lib/i18n';
+import { ButtonBack } from '@ui/ButtonBack';
+import { ButtonSignout } from '@ui/ButtonSignout';
+
+const currentPath = new URL(Astro.request.url).pathname;
+---
+
+<div class="w-full h-full bg-white overflow-hidden relative flex flex-col">
+  <header
+    class="flex justify-between items-center m-h-10 w-full bg-gradient-to-br from-yellow-500 to-green-600 py-2 px-4 text-white"
+  >
+    <ButtonBack currentPath={currentPath} />
+    <h1 class="text-3xl">{TEXT.app.appName}</h1>
+    <ButtonSignout client:idle />
+  </header>
+
+  <main class="bg-gray-100 px-4 py-10 flex-1 overflow-auto">
+    <slot />
+  </main>
+
+  <footer class="flex justify-center h-16 px-5 bg-white pb-2">
+    <FooterNav currentPath={currentPath} />
+  </footer>
+</div>
