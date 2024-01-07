@@ -8,7 +8,6 @@ import { TEXT } from '@lib/i18n';
 import type { ContactTypeWithId } from '@lib/types';
 import type { GameTypeWithId } from '@lib/types/game';
 import { getUser } from '@lib/utils';
-import { initContacts } from '@store/contacts';
 import { Show } from '@ui/Show';
 
 /* Get session cookie */
@@ -33,8 +32,6 @@ const queryContacts = await firestore
 const contactsDoc = queryContacts.docs.map((doc) => {
   return { documentId: doc.id, ...doc.data() };
 }) as ContactTypeWithId[];
-
-initContacts(contactsDoc);
 
 /* get created games from firestore */
 const queryCreatedGames = await firestore
