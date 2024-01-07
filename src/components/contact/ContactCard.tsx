@@ -12,7 +12,7 @@ export function ContactCard({
   isSelect?: boolean;
 }) {
   return (
-    <li>
+    <>
       <div className="flex items-center">
         <User name={contact.name} description={contact.email} />
       </div>
@@ -31,6 +31,6 @@ export function ContactCard({
           </Show>
         </div>
       </Show>
-    </li>
+    </>
   );
 }

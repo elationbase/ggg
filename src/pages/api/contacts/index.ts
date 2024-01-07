@@ -48,5 +48,5 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     );
   }
 
-  return redirect(ROUTE_CLIENT.dashboard, 302);
+  return redirect(ROUTE_CLIENT.contacts, 302);
 };

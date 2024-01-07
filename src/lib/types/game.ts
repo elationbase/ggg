@@ -1,10 +1,6 @@
-export type GuestType = {
-  email: string;
-};
-
-export type TeaTimeType = {
+type TeaTimeType = {
   time: string;
-  email: string;
+  players: string[];
 };
 
 export type GameType = {

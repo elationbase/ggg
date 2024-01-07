@@ -15,13 +15,19 @@ export function TeeTimeForm({
   gameInfo?: GameTypeWithId;
   clientErrors?: Errors;
 }) {
+  const onRemove = (index: number) => {
+    const newTeeTimes = teeTimes.filter((_, i) => i !== index);
+    setTeeTimes(newTeeTimes);
+  };
+
   const cretateTeeTime = (index: number) => {
     return (
       <TeeTimeFormItem
         id={index}
         time={gameInfo?.teeTimes[index]?.time}
-        players={gameInfo?.teeTimes[index]?.email}
-        key={index}
+        players={gameInfo?.teeTimes[index]?.players}
+        key={`teetime-${index}`}
+        onRemove={() => onRemove(index)}
       />
     );
   };

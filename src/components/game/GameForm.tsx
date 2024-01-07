@@ -4,6 +4,7 @@ import { ROUTE_API } from '@lib/routes';
 import { createGameSchema } from '@lib/schemas';
 import type { ContactTypeWithId, GameTypeWithId } from '@lib/types';
 import { Error } from '@ui/Error';
+import { Show } from '@ui/Show';
 import { InputText, Label } from '@ui/form';
 import { useState } from 'react';
 import type { z } from 'zod';
@@ -17,10 +18,8 @@ type GameFormProps = {
   contacts?: ContactTypeWithId[];
 };
 export function GameForm({ gameInfo, type, contacts }: GameFormProps) {
-  const [formData, setFormData] = useState<FormData>();
   const [clientErrors, setClientErrors] = useState<Errors>();
-
-  // const response = await submitFormData(formData);
+  const [formErrors, setFormErrors] = useState<string>();
 
   async function submitFormData(formData: FormData) {
     let apiUrl = ROUTE_API.games;
@@ -46,10 +45,11 @@ export function GameForm({ gameInfo, type, contacts }: GameFormProps) {
     }
   }
 
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     setClientErrors(undefined);
-    const data = new FormData(e.currentTarget as HTMLFormElement);
+    setFormErrors(undefined);
+    const data = new FormData(event.currentTarget);
     const result = createGameSchema.safeParse(data);
 
     if (!result.success) {
@@ -57,7 +57,12 @@ export function GameForm({ gameInfo, type, contacts }: GameFormProps) {
       setClientErrors(errors);
       return;
     }
-    setFormData(data);
+
+    const response = await submitFormData(data);
+
+    if (response?.error) {
+      setFormErrors(response.error);
+    }
   }
 
   return (
@@ -95,6 +100,9 @@ export function GameForm({ gameInfo, type, contacts }: GameFormProps) {
           type="submit">
           {type === 'edit' ? 'Edit' : 'Create'}
         </button>
+        <Show when={Boolean(formErrors)}>
+          <Error message={formErrors} />
+        </Show>
         {type === 'edit' && <DialogDelete documentId={gameInfo?.documentId} />}
       </form>
     </ContactContext.Provider>

@@ -4,22 +4,25 @@ import { Error } from '@ui/Error';
 import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
 import { Show } from '@ui/Show';
 import { InputText, Label } from '@ui/form';
+import { IconClose } from '@ui/icons';
 import { useState } from 'react';
 
 type TeeTimeFormItemProps = {
   id: number;
   time?: string;
-  players?: string;
+  players?: string[];
   timeError?: string[];
   emailError?: string[];
+  onRemove: () => void;
 };
 
 export function TeeTimeFormItem({
   id,
   time = '',
-  players = '',
+  players = [],
   timeError,
   emailError,
+  onRemove,
 }: TeeTimeFormItemProps) {
   // State for selected players, initially empty
   const [selectedPlayers, setSelectedPlayers] = useState<ContactTypeWithId[]>([]);
@@ -42,7 +45,12 @@ export function TeeTimeFormItem({
   };
 
   return (
-    <div className="p-6 bg-white border border-gray-200 rounded-lg shadow">
+    <div className="p-6 bg-white border border-gray-200 rounded-lg shadow relative">
+      <Show when={id !== 0}>
+        <button className="absolute top-2 right-2" onClick={onRemove}>
+          <IconClose size={20} />
+        </button>
+      </Show>
       <div className="flex flex-row gap-4 w-full mb-4">
         <div className="grid grid-cols-1 gap-2 flex-1">
           <Label htmlFor={`time${id}`} text="Select Time:" />
@@ -55,9 +63,12 @@ export function TeeTimeFormItem({
       <div className="flex flex-row gap-4 w-full">
         <div className="grid grid-cols-1 gap-2 flex-1">
           <Label htmlFor={`email${id}`} text="Players:" />
-          <InputText type="email" id={`email${id}`} defaultValue={players} />
-          {selectedPlayers.map((player) => (
-            <p key={player.documentId}>{player.name}</p>
+          {/* <InputText type="email" id={`email${id}`} defaultValue={players} /> */}
+          {selectedPlayers.map((player, index) => (
+            <span key={player.documentId}>
+              <input type="hidden" name={`time${id}_player${index}`} value={player.email} />
+              {player.name}
+            </span>
           ))}
           <Show when={Boolean(emailError)} fallback={<ErrorPlaceholder />}>
             <Error message={emailError} />

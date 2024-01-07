@@ -3,6 +3,7 @@ import { ContactList } from '@components/contact';
 import AppLayout from '@layouts/AppLayout.astro';
 import Layout from '@layouts/Layout.astro';
 import { firestore } from '@lib/firebase/server';
+import { ROUTE_CLIENT } from '@lib/routes';
 import type { ContactTypeWithId } from '@lib/types';
 import { getUser } from '@lib/utils';
 
@@ -33,29 +34,30 @@ const contactsDoc = queryContacts.docs.map((doc) => {
 <Layout title="Contacts">
   <AppLayout>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <header class="flex items-center justify-between mb-8">
+      <header class="mb-8">
         <h1 class="text-4xl font-bold">Contact Book</h1>
-        <div class="flex items-center">
-          <div class="relative">
-            <input
-              class="flex w-full py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-              id="search"
-              placeholder="Search contacts"
-              type="search"
-            />
-            <button
-              class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 absolute right-0 top-0 mt-3 mr-4"
-            >
-              Search
-            </button>
-          </div>
+      </header>
+      <aside class="flex items-center justify-between">
+        <a
+          href={ROUTE_CLIENT.addContact}
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 ml-4"
+        >
+          Add Contact
+        </a>
+        <div class="relative">
+          <input
+            class="flex w-full py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+            id="search"
+            placeholder="Search contacts"
+            type="search"
+          />
           <button
-            class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 ml-4"
+            class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 absolute right-0 top-0 mt-3 mr-4"
           >
-            Add Contact
+            Search
           </button>
         </div>
-      </header>
+      </aside>
       <ContactList contacts={contactsDoc} />
     </section>
   </AppLayout>

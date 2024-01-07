@@ -65,7 +65,7 @@ const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Dat
 <Layout title="Dashboard">
   <AppLayout>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mt-10 mb-6">
+      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mb-6">
         {TEXT.dashboard.gamesCreated}
       </h1>
       <Show when={createdGames.length === 0}>
