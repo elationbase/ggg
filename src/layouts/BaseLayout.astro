@@ -30,6 +30,9 @@ const author = 'Alvaro Montero';
     <meta property="og:locale" content="en_US" />
     <meta name="robots" content="follow, index" />
     <meta name="author" content={author} />
+    <meta name="apple-mobile-web-app-title" content="GGG" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -47,6 +50,7 @@ const author = 'Alvaro Montero';
         document.documentElement.classList.add('dark');
       }
       window.localStorage.setItem('theme', theme);
+      window.scrollTo(0, 1);
     </script>
   </head>
   <body class="w-full h-svh">
