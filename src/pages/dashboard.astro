@@ -38,25 +38,39 @@ const queryCreatedGames = await firestore
   .limit(100)
   .get();
 
-/* get invited games from firestore */
+// Query Firestore for games where the user is a player
 const queryInvitedGames = await firestore
   .collection('games')
   .where('players', 'array-contains', user.email)
   .limit(100)
   .get();
 
+// Map the query results to an array of game documents
 const createdamesDoc = queryCreatedGames.docs.map((doc) => {
   return { documentId: doc.id, ...doc.data() };
 }) as GameTypeWithId[];
 
+// Filter the created games to only include games scheduled for today or later
 const createdGames = createdamesDoc
-  .filter((game) => new Date(game.date) > new Date())
+  .filter((game) => {
+    // Create a new Date object from the game date and set the time to 00:00:00
+    const gameDate = new Date(game.date);
+    gameDate.setUTCHours(0, 0, 0, 0);
+    // Create a new Date object for today and set the time to 00:00:00
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    // Return true if the game date is today or later
+    return gameDate >= today;
+  })
+  // Sort the games by date in ascending order
   .sort((a, b) => +new Date(a.date) - +new Date(b.date));
 
+// Map the query results to an array of game documents
 const invitedGamesDoc = queryInvitedGames.docs.map((doc) => {
   return { documentId: doc.id, ...doc.data() };
 }) as GameTypeWithId[];
 
+// Sort the invited games by date in ascending order
 const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Date(b.date));
 ---
 
