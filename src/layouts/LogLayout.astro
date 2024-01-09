@@ -7,12 +7,12 @@ interface Props {
 const { heading } = Astro.props;
 ---
 
-<main class="flex flex-col justify-center items-center p-4">
+<main class="flex flex-col justify-center items-center p-2">
   <header class="max-w-md">
     <h1 class="font-semibold w-full mb-12 text-4xl">GoGoGolf</h1>
   </header>
   <section class="max-w-md w-full">
-    <Card isBlurred className="p-8">
+    <Card isBlurred className="p-8 mb-16">
       <h2 class="font-semibold text-2xl w-full mb-2">{heading}</h2>
       <slot />
     </Card>
