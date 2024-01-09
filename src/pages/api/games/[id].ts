@@ -31,49 +31,69 @@ export const PUT: APIRoute = async ({ request, cookies, redirect, params }) => {
       { status: 400 },
     );
   }
-
+  // Destructure the validated data into variables
   const {
     name,
     location,
     date,
     time0,
-    email0,
     time1,
-    email1,
     time2,
-    email2,
     time3,
-    email3,
+    time0_player0,
+    time0_player1 = '',
+    time0_player2 = '',
+    time0_player3 = '',
+    time1_player0 = '',
+    time1_player1 = '',
+    time1_player2 = '',
+    time1_player3 = '',
+    time2_player0 = '',
+    time2_player1 = '',
+    time2_player2 = '',
+    time2_player3 = '',
+    time3_player0 = '',
+    time3_player1 = '',
+    time3_player2 = '',
+    time3_player3 = '',
     authorId,
   } = result.data;
 
+  // Create an array of tee times
   const teeTimes = [
     {
       time: time0,
-      email: email0,
+      emails: [time0_player0, time0_player1, time0_player2, time0_player3],
     },
   ];
 
-  if (time1 && email1) {
+  // If a second tee time exists, add it to the teeTimes array
+  if (time1) {
     teeTimes.push({
       time: time1,
-      email: email1,
+      emails: [time1_player0, time1_player1, time1_player2, time1_player3],
     });
   }
 
-  if (time2 && email2) {
+  // If a third tee time exists, add it to the teeTimes array
+  if (time2) {
     teeTimes.push({
       time: time2,
-      email: email2,
+      emails: [time2_player0, time2_player1, time2_player2, time2_player3],
     });
   }
 
-  if (time3 && email3) {
+  // If a fourth tee time exists, add it to the teeTimes array
+  if (time3) {
     teeTimes.push({
       time: time3,
-      email: email3,
+      // Include the emails of the players for this tee time
+      emails: [time3_player0, time3_player1, time3_player2, time3_player3],
     });
   }
+
+  // Flatten the array of player emails into a single array
+  const players = teeTimes.flatMap((teeTime) => teeTime.emails);
 
   if (uid !== authorId) {
     return new Response(
@@ -113,6 +133,7 @@ export const PUT: APIRoute = async ({ request, cookies, redirect, params }) => {
       date,
       location,
       teeTimes,
+      players,
     });
   } catch (error: unknown) {
     return new Response(

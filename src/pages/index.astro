@@ -2,6 +2,7 @@
 import Layout from '@layouts/Layout.astro';
 import { ROUTE_CLIENT } from '@lib/routes';
 import { getUser } from '@lib/utils';
+import { Code } from '@nextui-org/react';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -15,16 +16,23 @@ if (sessionCookie) {
 
 <Layout title="Home">
   <main class="w-full h-full flex flex-col items-center justify-center">
-    <p class="text-3xl text-zinc-300 font-semibold">Welcome to GoGoGolf!</p>
-    <div class="flex gap-4 mt-4">
+    <h1 class="text-3xl font-semibold">
+      Welcome to <Code color="success" className="text-3xl block">GoGoGolf</Code>
+    </h1>
+    <div class="flex gap-4 mt-12">
       <a
+        color="success"
         href={ROUTE_CLIENT.login}
-        class="bg-indigo-400 font-medium hover:bg-indigo-400 px-4 py-1 rounded-md">Sign in</a
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-unit-4 min-w-unit-20 h-unit-10 text-small gap-unit-2 rounded-medium [&>svg]:max-w-[theme(spacing.unit-8)] data-[pressed=true]:scale-[0.97] transition-transform-colors-opacity motion-reduce:transition-none bg-success text-success-foreground data-[hover=true]:opacity-hover"
       >
+        Sign in
+      </a>
       <a
         href={ROUTE_CLIENT.register}
-        class="bg-indigo-400 font-medium hover:bg-indigo-400 px-4 py-1 rounded-md">Register</a
+        class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 border-medium bg-transparent px-unit-4 min-w-unit-20 h-unit-10 text-small gap-unit-2 rounded-medium [&>svg]:max-w-[theme(spacing.unit-8)] data-[pressed=true]:scale-[0.97] transition-transform-colors-opacity motion-reduce:transition-none border-success text-success hover:!text-success-foreground hover:!bg-success"
       >
+        Register
+      </a>
     </div>
   </main>
 </Layout>

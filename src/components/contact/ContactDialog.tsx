@@ -60,10 +60,7 @@ export function ContactDialog({
                 <Show when={isMaxPlayers}>
                   <Code color="secondary">Max Number of Players Selected</Code>
                 </Show>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Cancel
-                </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button color="primary" onPress={onClose} fullWidth>
                   Select
                 </Button>
               </ModalFooter>

@@ -39,17 +39,16 @@ if (contactData.authorId !== user.uid) {
   return Astro.redirect(ROUTE_CLIENT.dashboard);
 }
 
-const ContactInfo = Object.assign(contactData, {
+const ContactInfo = {
+  ...contactData,
   documentId: contactInfoRef.id,
-});
+};
 ---
 
 <Layout title="Edit Contact">
   <AppLayout>
     <section class="w-full">
-      <h1 class="font-semibold sm:text-2xl text-xl dark:text-zinc-100 text-zinc-900 w-full mb-4">
-        Edit Contact
-      </h1>
+      <h1 class="font-semibold sm:text-2xl text-xl w-full mb-4">Edit Contact</h1>
       <ContactForm client:load contactInfo={ContactInfo} type="edit" />
     </section>
   </AppLayout>

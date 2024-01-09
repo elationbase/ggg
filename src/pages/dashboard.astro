@@ -1,5 +1,4 @@
 ---
-import { ContactList } from '@components/contact';
 import { GameList } from '@components/game';
 import AppLayout from '@layouts/AppLayout.astro';
 import Layout from '@layouts/Layout.astro';
@@ -65,7 +64,7 @@ const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Dat
 <Layout title="Dashboard">
   <AppLayout>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mb-6">
+      <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">
         {TEXT.dashboard.gamesCreated}
       </h1>
       <Show when={createdGames.length === 0}>
@@ -83,7 +82,5 @@ const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Dat
         <GameList games={invitedGames} />
       </section>
     </Show>
-
-    <ContactList contacts={contactsDoc} />
   </AppLayout>
 </Layout>

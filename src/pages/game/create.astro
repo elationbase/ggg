@@ -34,7 +34,7 @@ const contactsDoc = queryContacts.docs.map((doc) => {
 <Layout title="Create New Game">
   <AppLayout>
     <section class="w-full">
-      <h1 class="font-semibold sm:text-2xl text-xl text-zinc-900 w-full mb-6">Create a new game</h1>
+      <h1 class="font-semibold sm:text-2xl text-xl w-full mb-6">Create a new game</h1>
       <GameForm contacts={contactsDoc} client:load />
     </section>
   </AppLayout>

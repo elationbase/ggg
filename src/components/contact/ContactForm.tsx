@@ -2,10 +2,11 @@ import { DialogDelete } from '@components/DialogDelete';
 import { ROUTE_API } from '@lib/routes';
 import { createContactSchema } from '@lib/schemas';
 import type { ContactTypeWithId } from '@lib/types';
+import { Button } from '@nextui-org/react';
 import { Error } from '@ui/Error';
 import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
 import { Show } from '@ui/Show';
-import { InputText, Label } from '@ui/form';
+import { InputText } from '@ui/form';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 
@@ -68,14 +69,12 @@ export function ContactForm({
   return (
     <form className="grid grid-cols-1 gap-3 w-full" onSubmit={submit}>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="name" text="Name" />
         <InputText id="name" defaultValue={contactInfo?.name ?? ''} />
         <Show when={Boolean(clientErrors?.fieldErrors.name)} fallback={<ErrorPlaceholder />}>
           <Error message={clientErrors?.fieldErrors.name} />
         </Show>
       </div>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="group" text="Group" />
         <InputText id="group" defaultValue={contactInfo?.group ?? ''} />
         <Show when={Boolean(clientErrors?.fieldErrors.group)} fallback={<ErrorPlaceholder />}>
           <Error message={clientErrors?.fieldErrors.group} />
@@ -83,20 +82,17 @@ export function ContactForm({
       </div>
       <div className="flex flex-row gap-4 w-full">
         <div className="grid grid-cols-1 gap-2 flex-1">
-          <Label htmlFor="email" text="Email" />
           <InputText type="email" id="email" defaultValue={contactInfo?.email ?? ''} />
           <Show when={Boolean(clientErrors?.fieldErrors.email)} fallback={<ErrorPlaceholder />}>
             <Error message={clientErrors?.fieldErrors.email} />
           </Show>
         </div>
       </div>
-      <button
-        className="dark:bg-violet-700 bg-violet-300 border-transparent hover:border-violet-400 dark:hover:border-violet-500 py-1.5 border rounded-md mt-1 dark:text-violet-100 dark:hover:text-white text-violet-700 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 disabled:opacity-50 disabled:cursor-not-allowed"
-        type="submit">
-        <Show fallback="Create" when={type === 'edit'}>
-          Edit
+      <Button type="submit" color="primary">
+        <Show fallback="Create New Contact" when={type === 'edit'}>
+          Save Contact
         </Show>
-      </button>
+      </Button>
       <Show when={Boolean(formErrors)}>
         <Error message={formErrors} />
       </Show>

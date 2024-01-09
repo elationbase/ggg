@@ -1,9 +1,7 @@
 import { ROUTE_API } from '@lib/routes';
 import { registerSchema } from '@lib/schemas';
 import { Error } from '@ui/Error';
-import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
-import { Show } from '@ui/Show';
-import { InputText, Label } from '@ui/form';
+import { Button, InputText } from '@ui/form';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 
@@ -65,40 +63,40 @@ export default function SignupForm() {
   return (
     <form className="grid grid-cols-1 gap-3 w-full" onSubmit={submit}>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="name" text="Username" />
-        <InputText id="name" />
-        <Show when={Boolean(clientErrors?.fieldErrors.name)} fallback={<ErrorPlaceholder />}>
-          <Error message={clientErrors?.fieldErrors.name} />
-        </Show>
+        <InputText
+          id="name"
+          label="Username"
+          isInvalid={Boolean(clientErrors?.fieldErrors.name)}
+          errorMessage={clientErrors?.fieldErrors.name}
+        />
       </div>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="email" text="Email" />
-        <InputText id="email" type="email" />
-        <Show when={Boolean(clientErrors?.fieldErrors.email)} fallback={<ErrorPlaceholder />}>
-          <Error message={clientErrors?.fieldErrors.email} />
-        </Show>
+        <InputText
+          id="email"
+          label="Email"
+          isInvalid={Boolean(clientErrors?.fieldErrors.email)}
+          errorMessage={clientErrors?.fieldErrors.email}
+        />
       </div>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="password" text="Password" />
-        <InputText id="password" type="password" />
-        <Show when={Boolean(clientErrors?.fieldErrors.password)} fallback={<ErrorPlaceholder />}>
-          <Error message={clientErrors?.fieldErrors.password} />
-        </Show>
+        <InputText
+          id="password"
+          label="Password"
+          isInvalid={Boolean(clientErrors?.fieldErrors.password)}
+          errorMessage={clientErrors?.fieldErrors.password}
+        />
       </div>
       <div className="grid grid-cols-1 gap-2">
-        <Label htmlFor="confirmPassword" text="Confirm Password" />
-        <InputText id="confirmPassword" type="password" />
-        <Show
-          when={Boolean(clientErrors?.fieldErrors.confirmPassword)}
-          fallback={<ErrorPlaceholder />}>
-          <Error message={clientErrors?.fieldErrors.confirmPassword} />
-        </Show>
+        <InputText
+          id="confirmPassword"
+          label="Confirm Password"
+          isInvalid={Boolean(clientErrors?.fieldErrors.confirmPassword)}
+          errorMessage={clientErrors?.fieldErrors.confirmPassword}
+        />
       </div>
-      <button
-        className="bg-zinc-800 py-1.5 border border-zinc-900 rounded mt-2 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-600 focus:ring-offset-zinc-900"
-        type="submit">
-        Sign up
-      </button>
+      <Button color="primary" type="submit">
+        Register
+      </Button>
       {renderFormErrors()}
     </form>
   );

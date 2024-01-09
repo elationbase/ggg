@@ -11,7 +11,7 @@ export const createContactSchema = zfd.formData({
   ...contactSchema,
 });
 
-export const createContactSchemaWithId = zfd.formData({
+export const updateContactSchema = zfd.formData({
   ...contactSchema,
   authorId: zfd.text(z.string()),
 });

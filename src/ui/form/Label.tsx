@@ -5,7 +5,7 @@ type LabelProps = {
 
 export function Label({ htmlFor, text }: LabelProps) {
   return (
-    <label htmlFor={htmlFor} className="font-medium text-zinc-900 text-sm">
+    <label htmlFor={htmlFor} className="font-medium text-sm">
       {text}
     </label>
   );

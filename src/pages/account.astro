@@ -3,8 +3,8 @@ import AppLayout from '@layouts/AppLayout.astro';
 import Layout from '@layouts/Layout.astro';
 import { ROUTE_CLIENT } from '@lib/routes';
 import { getUser } from '@lib/utils';
-import { Button } from '@nextui-org/react';
 import { ButtonSignout } from '@ui/ButtonSignout';
+import { SwitchTheme } from '@ui/SwitchTheme';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -21,12 +21,14 @@ if (!user) {
 
 <Layout title="Account">
   <AppLayout>
+    <header>
+      <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">My Account</h1>
+    </header>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <h1 class="text-xl sm:text-3xl w-full text-zinc-900 font-semibold mt-10 mb-6">My Account</h1>
+      <SwitchTheme client:idle />
     </section>
-    <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <Button color="primary" client:visible>My button</Button>
-      <ButtonSignout client:idle />
+    <section class="w-full pt-12 pb-4">
+      <ButtonSignout isAccountPage client:idle />
     </section>
   </AppLayout>
 </Layout>

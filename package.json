@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "astro": "astro",
-    "build": "npm i && astro check && astro build",
+    "build": "astro build",
     "check": "astro check",
     "check:types": "tsc --noEmit",
     "dev": "astro dev",
@@ -17,7 +17,6 @@
     "@astrojs/react": "^3.0.9",
     "@astrojs/tailwind": "^5.0.3",
     "@astrojs/vercel": "^6.1.0",
-    "@kobalte/core": "^0.9.4",
     "@nextui-org/react": "^2.2.9",
     "@types/react": "^18.2.46",
     "@types/react-dom": "^18.2.18",

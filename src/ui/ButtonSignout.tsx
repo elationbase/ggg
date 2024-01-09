@@ -1,6 +1,7 @@
 import { ROUTE_API } from '@lib/routes';
+import { Button } from './form';
 
-export function ButtonSignout() {
+export function ButtonSignout({ isAccountPage }: { isAccountPage?: boolean }) {
   async function signout() {
     const res = await fetch(ROUTE_API.signout);
     if (!res.ok) {
@@ -13,11 +14,13 @@ export function ButtonSignout() {
   }
 
   return (
-    <button
-      className="border border-0.5 border-zinc-300 text-zinc-300 hover:bg-slate-500 font-normal  transition-all px-4 py-1 rounded-md"
+    <Button
       type="button"
+      variant="bordered"
+      color={isAccountPage ? 'danger' : 'default'}
+      fullWidth={isAccountPage ? true : false}
       onClick={signout}>
       Sign out
-    </button>
+    </Button>
   );
 }

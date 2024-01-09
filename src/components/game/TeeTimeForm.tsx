@@ -1,7 +1,7 @@
 import type { createGameSchema } from '@lib/schemas';
 import type { GameTypeWithId } from '@lib/types';
 import { Show } from '@ui/Show';
-import { Label } from '@ui/form';
+import { Button, Label } from '@ui/form';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 import { TeeTimeFormItem } from './TeeTimeFormItem';
@@ -55,11 +55,9 @@ export function TeeTimeForm({
       <Label text="Tee Times" />
       {teeTimes}
       <Show when={!isMaxTeeTimes()}>
-        <button
-          className="dark:bg-yellow-700 bg-yellow-300 border-transparent hover:border-yellow-400 dark:hover:border-yellow-500 py-1.5 border rounded-md mt-1 dark:text-yellow-100 dark:hover:text-white text-yellow-700 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={addTeeTime}>
+        <Button onClick={addTeeTime} color="primary" variant="bordered">
           Add Tea Time
-        </button>
+        </Button>
       </Show>
     </>
   );

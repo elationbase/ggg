@@ -11,11 +11,11 @@ export function GameList({
 }) {
   return (
     <ContactContext.Provider value={contacts ?? []}>
-      <ul className="w-full grid grid-cols-1 gap-6 pb-4">
+      <div className="grid grid-cols-1 gap-6 pb-4">
         {games?.map((game) => (
           <GameCard game={game} key={game.documentId} />
         ))}
-      </ul>
+      </div>
     </ContactContext.Provider>
   );
 }

@@ -5,7 +5,7 @@ import { createGameSchema } from '@lib/schemas';
 import type { ContactTypeWithId, GameTypeWithId } from '@lib/types';
 import { Error } from '@ui/Error';
 import { Show } from '@ui/Show';
-import { InputText, Label } from '@ui/form';
+import { Button, InputText } from '@ui/form';
 import { useState } from 'react';
 import type { z } from 'zod';
 import { TeeTimeForm } from './TeeTimeForm';
@@ -69,37 +69,43 @@ export function GameForm({ gameInfo, type, contacts }: GameFormProps) {
     <ContactContext.Provider value={contacts ?? []}>
       <form className="grid grid-cols-1 gap-3 w-full" onSubmit={submit}>
         <div className="grid grid-cols-1 gap-2">
-          <Label htmlFor="name" text="Name" />
-          <InputText id="name" defaultValue={gameInfo?.name ?? ''} />
-          {clientErrors?.fieldErrors.name && <Error message={clientErrors?.fieldErrors.name} />}
+          <InputText
+            id="name"
+            defaultValue={gameInfo?.name ?? ''}
+            label="Game Name"
+            isInvalid={Boolean(clientErrors?.fieldErrors.name)}
+            errorMessage={clientErrors?.fieldErrors.name}
+          />
         </div>
         <div className="grid grid-cols-1 gap-2">
-          <Label htmlFor="location" text="Location" />
-          <InputText id="location" defaultValue={gameInfo?.location ?? ''} />
-          {clientErrors?.fieldErrors.location && (
-            <Error message={clientErrors?.fieldErrors.location} />
-          )}
+          <InputText
+            id="location"
+            defaultValue={gameInfo?.location ?? ''}
+            label="Location"
+            isInvalid={Boolean(clientErrors?.fieldErrors.location)}
+            errorMessage={clientErrors?.fieldErrors.location}
+          />
         </div>
         <div className="grid grid-cols-1 gap-2">
-          <Label htmlFor="date" text="Date" />
           <InputText
             type="date"
             id="date"
+            placeholder="MM/DD/YYYY"
             defaultValue={gameInfo?.date ?? ''}
             min={new Date()?.toISOString()?.slice(0, 10)}
+            label="Date"
+            isInvalid={Boolean(clientErrors?.fieldErrors.date)}
+            errorMessage={clientErrors?.fieldErrors.date}
           />
-          {clientErrors?.fieldErrors.date && <Error message={clientErrors?.fieldErrors.date} />}
         </div>
 
-        <div className="grid gap-2">
+        <div className="grid gap-2 mb-8">
           <TeeTimeForm gameInfo={gameInfo} clientErrors={clientErrors?.fieldErrors} />
         </div>
 
-        <button
-          className="bg-violet-300 border-transparent hover:border-violet-400 py-1.5 border rounded-md mt-1 dark:text-violet-100 text-violet-700 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-violet-400 disabled:opacity-50 disabled:cursor-not-allowed"
-          type="submit">
-          {type === 'edit' ? 'Edit' : 'Create'}
-        </button>
+        <Button type="submit" color="primary">
+          {type === 'edit' ? 'Edit Game' : 'Create Game'}
+        </Button>
         <Show when={Boolean(formErrors)}>
           <Error message={formErrors} />
         </Show>

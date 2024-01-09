@@ -36,7 +36,9 @@ export function DialogDelete({ documentId, type }: DialogDeleteProps) {
   const headerText = type === 'games' ? TEXT.deleteDialog.trigger[0] : TEXT.deleteDialog.trigger[1];
   return (
     <>
-      <Button onPress={onOpen}>{headerText}</Button>
+      <Button onPress={onOpen} color="danger" variant="bordered">
+        {headerText}
+      </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} isDismissable={false}>
         <ModalContent>
           {(onClose) => (
@@ -51,7 +53,7 @@ export function DialogDelete({ documentId, type }: DialogDeleteProps) {
                 <Button color="danger" variant="light" onPress={onClose}>
                   {TEXT.deleteDialog.cancel}
                 </Button>
-                <Button color="primary" onClick={() => deleteRecord(documentId, type)}>
+                <Button color="danger" onClick={() => deleteRecord(documentId, type)}>
                   {TEXT.deleteDialog.yesDelete}
                 </Button>
               </ModalFooter>

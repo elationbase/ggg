@@ -1,5 +1,6 @@
 import { ContactDialog } from '@components/contact';
 import type { ContactTypeWithId } from '@lib/types';
+import { Card } from '@nextui-org/react';
 import { Error } from '@ui/Error';
 import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
 import { Show } from '@ui/Show';
@@ -45,7 +46,7 @@ export function TeeTimeFormItem({
   };
 
   return (
-    <div className="p-6 bg-white border border-gray-200 rounded-lg shadow relative">
+    <Card className="p-6 relative">
       <Show when={id !== 0}>
         <button className="absolute top-2 right-2" onClick={onRemove}>
           <IconClose size={20} />
@@ -53,23 +54,29 @@ export function TeeTimeFormItem({
       </Show>
       <div className="flex flex-row gap-4 w-full mb-4">
         <div className="grid grid-cols-1 gap-2 flex-1">
-          <Label htmlFor={`time${id}`} text="Select Time:" />
-          <InputText type="time" id={`time${id}`} defaultValue={time} />
-          <Show when={Boolean(timeError)} fallback={<ErrorPlaceholder />}>
-            <Error message={timeError} />
-          </Show>
+          <InputText
+            label="Time"
+            placeholder="00:00"
+            type="time"
+            id={`time${id}`}
+            defaultValue={time}
+            isInvalid={Boolean(timeError)}
+            errorMessage={timeError}
+          />
         </div>
       </div>
       <div className="flex flex-row gap-4 w-full">
         <div className="grid grid-cols-1 gap-2 flex-1">
           <Label htmlFor={`email${id}`} text="Players:" />
           {/* <InputText type="email" id={`email${id}`} defaultValue={players} /> */}
-          {selectedPlayers.map((player, index) => (
-            <span key={player.documentId}>
-              <input type="hidden" name={`time${id}_player${index}`} value={player.email} />
-              {player.name}
-            </span>
-          ))}
+          <ol className="list-decimal ml-4">
+            {selectedPlayers.map((player, index) => (
+              <li key={player.documentId}>
+                <input type="hidden" name={`time${id}_player${index}`} value={player.email} />
+                {player.name}
+              </li>
+            ))}
+          </ol>
           <Show when={Boolean(emailError)} fallback={<ErrorPlaceholder />}>
             <Error message={emailError} />
           </Show>
@@ -80,6 +87,6 @@ export function TeeTimeFormItem({
         onSelectPlayer={onSelectPlayer}
         isMaxPlayers={selectedPlayers.length >= MAX_NUM_PLAYERS}
       />
-    </div>
+    </Card>
   );
 }
