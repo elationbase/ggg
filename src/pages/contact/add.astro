@@ -1,9 +1,8 @@
 ---
-import { ContactForm } from '@components/contact';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { getUser } from '@lib/utils';
+import { ContactForm } from '@/components/contact';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -18,7 +17,7 @@ if (!user) {
 }
 ---
 
-<Layout title="Add New Contact">
+<BaseLayout title="Add New Contact">
   <AppLayout>
     <section class="w-full">
       <h1 class="font-semibold sm:text-2xl text-xl dark:text-zinc-100 text-zinc-900 w-full mb-6">
@@ -27,4 +26,4 @@ if (!user) {
       <ContactForm client:load />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

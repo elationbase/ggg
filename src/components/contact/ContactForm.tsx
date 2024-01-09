@@ -1,12 +1,9 @@
-import { DialogDelete } from '@components/DialogDelete';
-import { ROUTE_API } from '@lib/routes';
-import { createContactSchema } from '@lib/schemas';
-import type { ContactTypeWithId } from '@lib/types';
+import { DialogDelete } from '@/components/DialogDelete';
+import { ROUTE_API } from '@/lib/routes';
+import { createContactSchema } from '@/lib/schemas';
+import type { ContactTypeWithId } from '@/lib/types';
+import { Error, ErrorPlaceholder, InputText, Show } from '@/ui';
 import { Button } from '@nextui-org/react';
-import { Error } from '@ui/Error';
-import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
-import { Show } from '@ui/Show';
-import { InputText } from '@ui/form';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 

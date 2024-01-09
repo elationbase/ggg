@@ -1,8 +1,7 @@
-import { ROUTE_CLIENT } from '@lib/routes';
-import type { ContactTypeWithId } from '@lib/types';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import type { ContactTypeWithId } from '@/lib/types';
+import { Show, Tag } from '@/ui';
 import { User } from '@nextui-org/react';
-import { Show } from '@ui/Show';
-import { Tag } from '@ui/Tag';
 
 export function ContactCard({
   contact,

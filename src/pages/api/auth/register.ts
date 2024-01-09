@@ -1,6 +1,6 @@
-import { auth } from '@lib/firebase/server';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { registerSchema } from '@lib/schemas';
+import { auth } from '@/lib/firebase/server';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { registerSchema } from '@/lib/schemas';
 import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, redirect }) => {

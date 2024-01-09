@@ -1,4 +1,5 @@
-import type { ContactTypeWithId } from '@lib/types';
+import type { ContactTypeWithId } from '@/lib/types';
+import { Show } from '@/ui';
 import {
   Badge,
   Button,
@@ -11,7 +12,6 @@ import {
   ModalHeader,
   useDisclosure,
 } from '@nextui-org/react';
-import { Show } from '@ui/Show';
 import { useContext } from 'react';
 import { ContactContext } from '.';
 import { ContactCard } from './ContactCard';

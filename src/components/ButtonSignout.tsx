@@ -1,5 +1,5 @@
-import { ROUTE_API } from '@lib/routes';
-import { Button } from './form';
+import { ROUTE_API } from '@/lib/routes';
+import { Button } from '@/ui';
 
 export function ButtonSignout({ isAccountPage }: { isAccountPage?: boolean }) {
   async function signout() {

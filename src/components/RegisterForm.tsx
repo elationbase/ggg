@@ -1,7 +1,6 @@
-import { ROUTE_API } from '@lib/routes';
-import { registerSchema } from '@lib/schemas';
-import { Error } from '@ui/Error';
-import { Button, InputText } from '@ui/form';
+import { ROUTE_API } from '@/lib/routes';
+import { registerSchema } from '@/lib/schemas';
+import { Button, Error, InputText } from '@/ui';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 
@@ -25,7 +24,7 @@ async function postFormData(formData: FormData) {
   return res;
 }
 
-export default function SignupForm() {
+export function RegisterForm() {
   const [clientErrors, setClientErrors] = useState<Errors>();
   const [formErrors, setFormErrors] = useState();
 

@@ -1,4 +1,4 @@
-import type { ContactTypeWithId, GameTypeWithId } from '@lib/types';
+import type { ContactTypeWithId, GameTypeWithId } from '@/lib/types';
 import { ContactContext } from '../contact/Contact.Context';
 import { GameCard } from './GameCard';
 

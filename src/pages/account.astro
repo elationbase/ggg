@@ -1,10 +1,9 @@
 ---
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { getUser } from '@lib/utils';
-import { ButtonSignout } from '@ui/ButtonSignout';
-import { SwitchTheme } from '@ui/SwitchTheme';
+import { ButtonSignout } from '@/components/ButtonSignout';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { SwitchTheme } from '@/ui/SwitchTheme';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -19,16 +18,16 @@ if (!user) {
 }
 ---
 
-<Layout title="Account">
+<BaseLayout title="Account">
   <AppLayout>
     <header>
       <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">My Account</h1>
     </header>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
-      <SwitchTheme client:idle />
+      <SwitchTheme client:only />
     </section>
     <section class="w-full pt-12 pb-4">
       <ButtonSignout isAccountPage client:idle />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

@@ -1,11 +1,10 @@
 ---
-import { GameForm } from '@components/game';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { firestore } from '@lib/firebase/server';
-import { ROUTE_CLIENT } from '@lib/routes';
-import type { GameType } from '@lib/types';
-import { getUser } from '@lib/utils';
+import { GameForm } from '@/components/game/GameForm';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { firestore } from '@/lib/firebase/server';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import type { GameType } from '@/lib/types';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -40,11 +39,11 @@ const GameInfo = Object.assign(gameData, {
 });
 ---
 
-<Layout title="Edit Game">
+<BaseLayout title="Edit Game">
   <AppLayout>
     <section class="w-full">
       <h1 class="font-semibold sm:text-2xl text-xl w-full mb-4">Edit Game</h1>
       <GameForm client:load gameInfo={GameInfo} type="edit" />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

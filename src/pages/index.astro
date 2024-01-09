@@ -1,7 +1,7 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { getUser } from '@lib/utils';
+import { BaseLayout } from '@/layouts';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { getUser } from '@/utils';
 import { Code } from '@nextui-org/react';
 
 /* Get session cookie */
@@ -14,7 +14,7 @@ if (sessionCookie) {
 }
 ---
 
-<Layout title="Home">
+<BaseLayout title="Home">
   <main class="w-full h-full flex flex-col items-center justify-center">
     <h1 class="text-3xl font-semibold">
       Welcome to <Code color="success" className="text-3xl block">GoGoGolf</Code>
@@ -35,4 +35,4 @@ if (sessionCookie) {
       </a>
     </div>
   </main>
-</Layout>
+</BaseLayout>

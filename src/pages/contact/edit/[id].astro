@@ -1,11 +1,10 @@
 ---
-import { ContactForm } from '@components/contact';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { firestore } from '@lib/firebase/server';
-import { ROUTE_CLIENT } from '@lib/routes';
-import type { ContactType } from '@lib/types';
-import { getUser } from '@lib/utils';
+import { ContactForm } from '@/components/contact';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { firestore } from '@/lib/firebase/server';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import type { ContactType } from '@/lib/types';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -45,11 +44,11 @@ const ContactInfo = {
 };
 ---
 
-<Layout title="Edit Contact">
+<BaseLayout title="Edit Contact">
   <AppLayout>
     <section class="w-full">
       <h1 class="font-semibold sm:text-2xl text-xl w-full mb-4">Edit Contact</h1>
       <ContactForm client:load contactInfo={ContactInfo} type="edit" />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

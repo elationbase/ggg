@@ -1,6 +1,6 @@
-import { TEXT } from '@lib/i18n';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { Show } from '@ui/Show';
+import { TEXT } from '@/lib/i18n';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { Show } from '@/ui';
 
 export function ButtonBack({ currentPath }: { currentPath: string }) {
   let backPath = ROUTE_CLIENT.dashboard;

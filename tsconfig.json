@@ -7,10 +7,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "outDir": "./dist",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@lib/*": ["src/lib/*"],
-      "@ui/*": ["src/ui/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

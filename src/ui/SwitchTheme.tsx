@@ -1,23 +1,35 @@
+import { Label } from '@/ui/form';
+import { IconMoon, IconSun } from '@/ui/icons';
 import { Switch } from '@nextui-org/react';
-import { Label } from '@ui/form';
-import { IconMoon, IconSun } from '@ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function SwitchTheme() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [theme, setTheme] = useState(window.localStorage.getItem('theme') ?? 'light');
+
   const onChange = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle('dark');
+    setTheme(theme === 'light' ? 'dark' : 'light');
   };
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
   return (
     <>
       <Label text="Selected Color Mode" />
       <Switch
         onValueChange={onChange}
-        isSelected={darkMode}
+        isSelected={theme === 'dark'}
         size="lg"
         color="secondary"
-        thumbIcon={() => (darkMode ? <IconMoon size={16} color="black" /> : <IconSun size={16} />)}>
+        thumbIcon={() =>
+          theme === 'dark' ? <IconMoon size={16} color="black" /> : <IconSun size={16} />
+        }>
         Dark mode
       </Switch>
     </>

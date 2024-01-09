@@ -1,6 +1,6 @@
-import { TEXT } from '@lib/i18n';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { IconContact, IconCreate, IconDashboard, IconUser } from '@ui/icons';
+import { TEXT } from '@/lib/i18n';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { IconContact, IconCreate, IconDashboard, IconUser } from '@/ui';
 
 type FooterNavItemProps = {
   icon: JSX.Element;

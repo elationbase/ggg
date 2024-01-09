@@ -1,11 +1,10 @@
 ---
-import RegisterForm from '@components/RegisterForm';
-import Layout from '@layouts/Layout.astro';
-import LogLayout from '@layouts/LogLayout.astro';
-import { ROUTE_CLIENT } from '@lib/routes';
+import { RegisterForm } from '@/components/RegisterForm';
+import { BaseLayout, LogLayout } from '@/layouts';
+import { ROUTE_CLIENT } from '@/lib/routes';
 ---
 
-<Layout title="Register to GoGoGolf">
+<BaseLayout title="Register to GoGoGolf">
   <LogLayout heading="Create a new account">
     <p class="text-sm mb-8 w-full">
       Already have an account? <a href={ROUTE_CLIENT.login} class="text-blue-400 font-medium">
@@ -14,4 +13,4 @@ import { ROUTE_CLIENT } from '@lib/routes';
     </p>
     <RegisterForm client:load />
   </LogLayout>
-</Layout>
+</BaseLayout>

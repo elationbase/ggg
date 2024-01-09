@@ -1,8 +1,8 @@
-import { auth, firestore } from '@lib/firebase/server';
-import { TEXT } from '@lib/i18n';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { updateContactSchema } from '@lib/schemas';
-import type { ContactTypeWithId } from '@lib/types';
+import { auth, firestore } from '@/lib/firebase/server';
+import { TEXT } from '@/lib/i18n';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { updateContactSchema } from '@/lib/schemas';
+import type { ContactTypeWithId } from '@/lib/types';
 import type { APIRoute } from 'astro';
 
 export const PUT: APIRoute = async ({ request, cookies, redirect, params }) => {

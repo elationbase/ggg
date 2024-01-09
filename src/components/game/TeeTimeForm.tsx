@@ -1,7 +1,6 @@
-import type { createGameSchema } from '@lib/schemas';
-import type { GameTypeWithId } from '@lib/types';
-import { Show } from '@ui/Show';
-import { Button, Label } from '@ui/form';
+import type { createGameSchema } from '@/lib/schemas';
+import type { GameTypeWithId } from '@/lib/types';
+import { Button, Label, Show } from '@/ui';
 import type { z } from 'astro/zod';
 import { useState } from 'react';
 import { TeeTimeFormItem } from './TeeTimeFormItem';

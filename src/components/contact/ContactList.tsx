@@ -1,4 +1,4 @@
-import type { ContactTypeWithId } from '@lib/types';
+import type { ContactTypeWithId } from '@/lib/types';
 import { Divider } from '@nextui-org/react';
 import { ContactCard } from './ContactCard';
 

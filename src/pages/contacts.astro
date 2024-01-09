@@ -1,13 +1,12 @@
 ---
-import { ContactList } from '@components/contact';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { firestore } from '@lib/firebase/server';
-import { ROUTE_CLIENT } from '@lib/routes';
-import type { ContactTypeWithId } from '@lib/types';
-import { getUser } from '@lib/utils';
-import { Button, InputText } from '@ui/form';
-import { IconSearch } from '@ui/icons';
+import { ContactList } from '@/components/contact';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { firestore } from '@/lib/firebase/server';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import type { ContactTypeWithId } from '@/lib/types';
+import { Button, InputText } from '@/ui/form';
+import { IconSearch } from '@/ui/icons';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -33,7 +32,7 @@ const contactsDoc = queryContacts.docs.map((doc) => {
 }) as ContactTypeWithId[];
 ---
 
-<Layout title="Contacts">
+<BaseLayout title="Contacts">
   <AppLayout>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
       <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">Contact Book</h1>
@@ -51,4 +50,4 @@ const contactsDoc = queryContacts.docs.map((doc) => {
       <ContactList contacts={contactsDoc} />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

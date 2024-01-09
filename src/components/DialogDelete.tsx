@@ -1,4 +1,4 @@
-import { TEXT } from '@lib/i18n';
+import { TEXT } from '@/lib/i18n';
 import {
   Button,
   Modal,

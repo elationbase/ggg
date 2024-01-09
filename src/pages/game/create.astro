@@ -1,11 +1,10 @@
 ---
-import { GameForm } from '@components/game/GameForm';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { firestore } from '@lib/firebase/server';
-import { ROUTE_CLIENT } from '@lib/routes';
-import type { ContactTypeWithId } from '@lib/types';
-import { getUser } from '@lib/utils';
+import { GameForm } from '@/components/game/GameForm';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { firestore } from '@/lib/firebase/server';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import type { ContactTypeWithId } from '@/lib/types';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -31,11 +30,11 @@ const contactsDoc = queryContacts.docs.map((doc) => {
 }) as ContactTypeWithId[];
 ---
 
-<Layout title="Create New Game">
+<BaseLayout title="Create New Game">
   <AppLayout>
     <section class="w-full">
       <h1 class="font-semibold sm:text-2xl text-xl w-full mb-6">Create a new game</h1>
       <GameForm contacts={contactsDoc} client:load />
     </section>
   </AppLayout>
-</Layout>
+</BaseLayout>

@@ -1,8 +1,8 @@
-import { auth, firestore } from '@lib/firebase/server';
-import { TEXT } from '@lib/i18n';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { updateGameSchema } from '@lib/schemas';
-import type { GameTypeWithId } from '@lib/types';
+import { auth, firestore } from '@/lib/firebase/server';
+import { TEXT } from '@/lib/i18n';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { updateGameSchema } from '@/lib/schemas';
+import type { GameTypeWithId } from '@/lib/types';
 import type { APIRoute } from 'astro';
 
 export const PUT: APIRoute = async ({ request, cookies, redirect, params }) => {

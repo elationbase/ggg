@@ -1,11 +1,7 @@
-import { ContactDialog } from '@components/contact';
-import type { ContactTypeWithId } from '@lib/types';
+import { ContactDialog } from '@/components/contact';
+import type { ContactTypeWithId } from '@/lib/types';
+import { Error, ErrorPlaceholder, IconClose, InputText, Label, Show } from '@/ui';
 import { Card } from '@nextui-org/react';
-import { Error } from '@ui/Error';
-import { ErrorPlaceholder } from '@ui/ErrorPlaceholder';
-import { Show } from '@ui/Show';
-import { InputText, Label } from '@ui/form';
-import { IconClose } from '@ui/icons';
 import { useState } from 'react';
 
 type TeeTimeFormItemProps = {

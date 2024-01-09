@@ -1,4 +1,4 @@
-import { ROUTE_CLIENT } from '@lib/routes';
+import { ROUTE_CLIENT } from '@/lib/routes';
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async ({ redirect, cookies }) => {

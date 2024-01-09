@@ -30,8 +30,26 @@ const author = 'Alvaro Montero';
     <meta property="og:locale" content="en_US" />
     <meta name="robots" content="follow, index" />
     <meta name="author" content={author} />
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+      window.localStorage.setItem('theme', theme);
+    </script>
   </head>
-  <body class="w-full h-svh dark">
+  <body class="w-full h-svh">
     <Card className="p-0 m-0 w-full h-svh rounded-none dark:bg-zinc-900">
       <slot />
     </Card>

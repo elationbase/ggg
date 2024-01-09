@@ -1,11 +1,9 @@
-import { DialogDelete } from '@components/DialogDelete';
-import { ContactContext } from '@components/contact';
-import { ROUTE_API } from '@lib/routes';
-import { createGameSchema } from '@lib/schemas';
-import type { ContactTypeWithId, GameTypeWithId } from '@lib/types';
-import { Error } from '@ui/Error';
-import { Show } from '@ui/Show';
-import { Button, InputText } from '@ui/form';
+import { DialogDelete } from '@/components/DialogDelete';
+import { ContactContext } from '@/components/contact';
+import { ROUTE_API } from '@/lib/routes';
+import { createGameSchema } from '@/lib/schemas';
+import type { ContactTypeWithId, GameTypeWithId } from '@/lib/types';
+import { Button, Error, InputText, Show } from '@/ui';
 import { useState } from 'react';
 import type { z } from 'zod';
 import { TeeTimeForm } from './TeeTimeForm';

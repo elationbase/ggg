@@ -1,13 +1,12 @@
 ---
-import { GameList } from '@components/game';
-import AppLayout from '@layouts/AppLayout.astro';
-import Layout from '@layouts/Layout.astro';
-import { firestore } from '@lib/firebase/server';
-import { TEXT } from '@lib/i18n';
-import type { ContactTypeWithId } from '@lib/types';
-import type { GameTypeWithId } from '@lib/types/game';
-import { getUser } from '@lib/utils';
-import { Show } from '@ui/Show';
+import { GameList } from '@/components/game';
+import { AppLayout, BaseLayout } from '@/layouts';
+import { firestore } from '@/lib/firebase/server';
+import { TEXT } from '@/lib/i18n';
+import type { ContactTypeWithId } from '@/lib/types';
+import type { GameTypeWithId } from '@/lib/types/game';
+import { Show } from '@/ui/Show';
+import { getUser } from '@/utils';
 
 /* Get session cookie */
 const sessionCookie = Astro.cookies.get('session')?.value;
@@ -61,7 +60,7 @@ const invitedGamesDoc = queryInvitedGames.docs.map((doc) => {
 const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Date(b.date));
 ---
 
-<Layout title="Dashboard">
+<BaseLayout title="Dashboard">
   <AppLayout>
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
       <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">
@@ -83,4 +82,4 @@ const invitedGames = invitedGamesDoc.sort((a, b) => +new Date(a.date) - +new Dat
       </section>
     </Show>
   </AppLayout>
-</Layout>
+</BaseLayout>

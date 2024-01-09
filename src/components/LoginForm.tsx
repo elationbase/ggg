@@ -1,9 +1,7 @@
-import { app } from '@lib/firebase/client';
-import { ROUTE_API } from '@lib/routes';
-import { loginSchema } from '@lib/schemas';
-import { Error } from '@ui/Error';
-import { Button, InputText } from '@ui/form';
-import { IconEyeClose, IconEyeOpen, IconGoogle } from '@ui/icons';
+import { app } from '@/lib/firebase/client';
+import { ROUTE_API } from '@/lib/routes';
+import { loginSchema } from '@/lib/schemas';
+import { Button, Error, IconEyeClose, IconEyeOpen, IconGoogle, InputText } from '@/ui';
 import type { z } from 'astro/zod';
 import {
   GoogleAuthProvider,
@@ -70,7 +68,7 @@ async function googleSignIn() {
   }
 }
 
-export default function LoginForm() {
+export function LoginForm() {
   const [clientErrors, setClientErrors] = useState<Errors>();
   const [formErrors, setFormErrors] = useState();
   const [isEyeVisible, setIsEyeVisible] = useState(false);
@@ -129,6 +127,7 @@ export default function LoginForm() {
           label="Password"
           id="password"
           name="password"
+          autoComplete="on"
           isInvalid={Boolean(clientErrors?.fieldErrors.password)}
           errorMessage={clientErrors?.fieldErrors.password}
           endContent={

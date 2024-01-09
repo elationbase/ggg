@@ -1,7 +1,7 @@
-import { auth, firestore } from '@lib/firebase/server';
-import { TEXT } from '@lib/i18n';
-import { ROUTE_CLIENT } from '@lib/routes';
-import { createGameSchema } from '@lib/schemas';
+import { auth, firestore } from '@/lib/firebase/server';
+import { TEXT } from '@/lib/i18n';
+import { ROUTE_CLIENT } from '@/lib/routes';
+import { createGameSchema } from '@/lib/schemas';
 import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
