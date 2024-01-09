@@ -4,7 +4,7 @@ import { AppLayout, BaseLayout } from '@/layouts';
 import { firestore } from '@/lib/firebase/server';
 import { ROUTE_CLIENT } from '@/lib/routes';
 import type { ContactTypeWithId } from '@/lib/types';
-import { Button, InputText } from '@/ui/form';
+import { InputText } from '@/ui/form';
 import { IconSearch } from '@/ui/icons';
 import { getUser } from '@/utils';
 
@@ -37,7 +37,11 @@ const contactsDoc = queryContacts.docs.map((doc) => {
     <section class="w-full grid grid-cols-1 gap-6 pb-4">
       <h1 class="text-xl sm:text-3xl w-full font-semibold mb-6">Contact Book</h1>
       <aside class="flex items-center justify-between gap-1">
-        <Button color="primary" href={ROUTE_CLIENT.addContact}>Add Contact</Button>
+        <a
+          class="z-0 group relative inline-flex items-center justify-center box-border appearance-none select-none whitespace-nowrap font-normal subpixel-antialiased overflow-hidden tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 px-unit-4 min-w-unit-20 h-unit-10 text-small gap-unit-2 rounded-medium [&>svg]:max-w-[theme(spacing.unit-8)] data-[pressed=true]:scale-[0.97] transition-transform-colors-opacity motion-reduce:transition-none bg-primary text-primary-foreground data-[hover=true]:opacity-hover"
+          color="primary"
+          href={ROUTE_CLIENT.addContact}>Add Contact</a
+        >
         <div class="relative">
           <InputText id="search" placeholder="Search contacts" type="search" label="" size="sm" />
           <button
